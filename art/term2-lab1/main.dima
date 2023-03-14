@@ -1,0 +1,83 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+int obrabotka(int, int, int[10][10], int, int);
+int nok(int, int);
+void printX(int tx = 197) {
+    for (int i = 0; i < 7; i++) printf("%c", 196);
+    printf("%c", tx);
+    for (int i = 0; i < 7; i++) printf("%c", 196);
+    printf("%c", tx);
+    for (int i = 0; i < 7; i++) printf("%c", 196);
+    printf("%c", tx);
+    for (int i = 0; i < 7; i++) printf("%c", 196);
+}
+
+int main()
+{
+    int n, m, a[10][10];
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            scanf("%d", &a[i][j]);
+        }
+    }
+    printf("%c", 218);
+    printX(194);
+    printf("%c", 191);
+
+    printf("\n%cNo	%ci	%cj	%cResult	%c\n", 179, 179, 179, 179, 179);
+    printf("%c", 195);
+    printX();
+    printf("%c", 180);
+    printf("\n");
+    int num = 1;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            int e = obrabotka(n, m, a, i, j);
+            printf("%c%d	%c%d	%c%d	%c%d	%c\n", 179, num, 179, i, 179, j, 179, e, 179);
+            if (i + 1 == n && j + 1 == m) {
+                printf("%c", 192);
+                printX(193);
+                printf("%c", 217);
+                printf("\n");
+            }
+            else {
+                printf("%c", 195);
+                printX();
+                printf("%c", 180);
+                printf("\n");
+            }
+            num++;
+        }
+    }
+}
+int obrabotka(int n, int m, int a[10][10], int ii, int jj) {
+    int first = a[ii][jj];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            bool diagonal = ((i == (j + ii - jj)));
+            bool horisont = (i==ii && j<=jj);
+            if (diagonal || horisont) {
+                if (a[i][j] > 0) {
+                    int e = a[i][j];
+                    first = nok(first, e);
+                }
+            }
+        }
+    }
+    if (first < 0) {
+        first = 0;
+    }
+    return first;
+}
+int nok(int x, int y) {
+    if (x <= 0) {
+        return y;
+    }
+    int count = (x > y) ? x : y;
+    for (int i = count;; i++) {
+        if (!(i % x) && !(i % y)) {
+            return i;
+        }
+    }
+}
